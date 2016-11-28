@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+      <meta charset="utf-8">
+      <title>My</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     
+      <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+
+
+</head>
+<body>
+<script>
+      /**
+       * 上传凭证算法实现参考
+       * 请注意External Resources项中引用的第三方CryptoJS库
+       */
+
+      var putPolicy = '{"scope":"github","deadline":"1489282922","returnBody":{"name":"$(fname)"}}';
+      var accessKey = "aXnbgNjvqPuFZ0ogN4qA_moy8PpTILZcD6eJjyj6";
+      var secretKey = "iMydoWwlDVacfVbDmLK43sIi5GXqdPJYhjSMT3Uh";
+      var genUpToken = function(accessKey, secretKey, putPolicy) {
+
+            //SETP 2
+            var put_policy = JSON.stringify(putPolicy);
+
+
+            //SETP 3
+            var encoded = base64encode(utf16to8(put_policy));
+
+
+            //SETP 4
+            var hash = CryptoJS.HmacSHA1(encoded, secretKey);
+            var encoded_signed = hash.toString(CryptoJS.enc.Base64);
+
+
+            //SETP 5
+            var upload_token = accessKey + ":" + safe64(encoded_signed) + ":" + encoded;
+
+            return upload_token;
+      };
+
+      console.log(genUpToken(accessKey, secretKey, putPolicy));
+
+
+</script>
+
+<script src="js/jquery.js"></script>
+<script src="js/plupload.min.js"></script>
+<script src="js/qiniu.min.js"></script>
+
+</body>
+</html>

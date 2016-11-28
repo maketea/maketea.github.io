@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+      <style>
+          .c1{
+              margin-top:200px;
+              width: 600px;
+          }
+      </style>
+  </head>
+  <body>
+
+  <div ng-app="myApp" ng-controller="myCtrl">
+    <div class="container c1">
+
+        <div class="row">
+            <div ng-repeat="x in myData" class="col-md-2">{{ x.name }}</div>
+        </div>
+
+        <div class="row">
+            <div ng-repeat="x in myData" class="col-md-2" >
+                <label class="checkbox-inline" ng-click="toggle($index,'sm')">
+                    <input ng-if="x.sm" type="checkbox" value="1" checked />
+                    <input ng-if="!x.sm" type="checkbox" value="1" />
+                    SM
+                </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div ng-repeat="x in myData" class="col-md-2" >
+                <label class="checkbox-inline" ng-click="toggle($index,'yb')">
+                    <input ng-if="x.yb" type="checkbox" value="1" checked />
+                    <input ng-if="!x.yb" type="checkbox" value="1" />
+                    YB
+                </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div ng-repeat="x in myData" class="col-md-2" >
+                <label class="checkbox-inline" ng-click="toggle($index,'zg')">
+                    <input ng-if="x.zg" type="checkbox" value="1" checked />
+                    <input ng-if="!x.zg" type="checkbox" value="1" />
+                    ZG
+                </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div ng-repeat="x in myData" class="col-md-2" >
+                <label class="checkbox-inline" ng-click="toggle($index,'fy')">
+                    <input ng-if="x.fy" type="checkbox" value="1" checked />
+                    <input ng-if="!x.fy" type="checkbox" value="1" />
+                    FY
+                </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div ng-repeat="x in myData" class="col-md-2" >
+                <label class="checkbox-inline" ng-click="toggle($index,'bt')">
+                    <input ng-if="x.bt" type="checkbox" value="1" checked />
+                    <input ng-if="!x.bt" type="checkbox" value="1" />
+                    BT
+                </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div ng-repeat="x in myData" class="col-md-2" >
+                <label class="checkbox-inline" ng-click="toggle($index,'mj')">
+                    <input ng-if="x.mj" type="checkbox" value="1" checked />
+                    <input ng-if="!x.mj" type="checkbox" value="1" />
+                    MJ
+                </label>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+
+  </div>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+
+            $scope.alllist = [
+                {'sm':'SM'},
+                {'yb':'YB'},
+
+
+            ];
+            if(localStorage.getItem('my_data')) {
+                $scope.myData = JSON.parse(localStorage.getItem('my_data'));
+            } else {
+                $scope.myData =[
+                    {
+                        "name":"mw",
+                        "sm":0,
+                        "yb":0,
+                        "zg":0,
+                        'fy':0,
+                        'bt':0,
+                        'mj':0
+                    },
+                    {
+                        "name":"lg",
+                        "sm":0,
+                        "yb":0,
+                        "zg":0,
+                        'fy':0,
+                        'bt':0,
+                        'mj':0
+                    },
+                    {
+                        "name":"pt",
+                        "sm":0,
+                        "yb":0,
+                        "zg":0,
+                        'fy':0,
+                        'bt':0,
+                        'mj':0
+                    },
+                    {
+                        "name":"st",
+                        "sm":0,
+                        "yb":0,
+                        "zg":0,
+                        'fy':0,
+                        'bt':0,
+                        'mj':0
+                    },
+                    {
+                        "name":"df",
+                        "sm":0,
+                        "yb":0,
+                        "zg":0,
+                        'fy':0,
+                        'bt':0,
+                        'mj':0
+                    }
+                ];
+
+            }
+
+            $scope.toggle = function(index, name) {
+
+                if($scope.myData[index][name] == 0) {
+                    $scope.myData[index][name] = 1;
+                } else {
+                    $scope.myData[index][name] = 0;
+                }
+
+                $scope.saveData();
+            };
+
+            $scope.saveData = function() {
+
+                localStorage.setItem('my_data', JSON.stringify($scope.myData));
+            }
+        });
+</script>
+  </body>
+</html>
