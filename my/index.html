@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Single</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+
+<meta charset utf="8">
+<!--font-awsome-css-->
+
+<!--bootstrap-->
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<!--custom css-->
+	<link href="css/style.css" rel="stylesheet" type="text/css"/>
+<!--component-css-->
+	<script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
+    </head>
+<body>
+<div class="body-back"  ng-app="myApp" ng-controller="myCtrl">
+
+
+
+
+		<div ng-repeat="x in myData" class="w3agile banner-bottom">
+			<div ><img class="img-rounded" width="80px" src="images/{{x.name}}.png"></div>
+			<br/>
+
+			<div class="btn-group">
+				<button ng-if="x.sm" type="button" ng-click="toggle($index,'sm')" class="btn btn-default" style="background-color:#ababab"><img width="18px" class="img-circle" src="images/sm.jpg"> 师门</button>
+				<button ng-if="!x.sm" type="button" ng-click="toggle($index,'sm')" class="btn btn-default"><img width="18px" class="img-circle" src="images/sm.jpg"> 师门</button>
+
+				<button ng-if="x.yb" type="button" ng-click="toggle($index,'yb')" class="btn btn-default" style="background-color:#ababab"><img width="18px" class="img-circle" src="images/yb.jpg"> 押镖</button>
+				<button ng-if="!x.yb" type="button" ng-click="toggle($index,'yb')" class="btn btn-default"><img width="18px" class="img-circle" src="images/yb.jpg"> 押镖</button>
+
+				<button ng-if="x.zg" type="button" ng-click="toggle($index,'zg')" class="btn btn-default" style="background-color:#ababab"><img width="18px" class="img-circle" src="images/zg.jpg"> 抓鬼</button>
+				<button ng-if="!x.zg" type="button" ng-click="toggle($index,'zg')" class="btn btn-default"><img width="18px" class="img-circle" src="images/zg.jpg"> 抓鬼</button>
+
+				<button ng-if="x.fy" type="button" ng-click="toggle($index,'fy')" class="btn btn-default" style="background-color:#ababab"><img width="18px" class="img-circle" src="images/fy.jpg"> 封妖</button>
+				<button ng-if="!x.fy" type="button" ng-click="toggle($index,'fy')" class="btn btn-default"><img width="18px" class="img-circle" src="images/fy.jpg"> 封妖</button>
+
+				<br/>
+				<button ng-if="x.bt" type="button" ng-click="toggle($index,'bt')" class="btn btn-default" style="background-color:#ababab"><img width="18px" class="img-circle" src="images/bt.jpg"> 宝图</button>
+				<button ng-if="!x.bt" type="button" ng-click="toggle($index,'bt')" class="btn btn-default"><img width="18px" class="img-circle" src="images/bt.jpg"> 宝图</button>
+
+				<button ng-if="x.mj" type="button" ng-click="toggle($index,'mj')" class="btn btn-default" style="background-color:#ababab"><img width="18px" class="img-circle" src="images/mj.jpg"> 秘境</button>
+				<button ng-if="!x.mj" type="button" ng-click="toggle($index,'mj')" class="btn btn-default"><img width="18px" class="img-circle" src="images/mj.jpg"> 秘境</button>
+
+				<button ng-if="x.jb" type="button" ng-click="toggle($index,'jb')" class="btn btn-default" style="background-color:#ababab"><img width="18px" class="img-circle" src="images/sm.jpg"> 金币</button>
+				<button ng-if="!x.jb" type="button" ng-click="toggle($index,'jb')" class="btn btn-default"><img width="18px" class="img-circle" src="images/sm.jpg"> 金币</button>
+			</div>
+
+
+		</div>
+		<button type="button" ng-click="refresh()" class="btn btn-danger btn-block">刷新</button>
+	
+</div>
+
+<script src="js/bootstrap.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script>
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl', function($scope) {
+
+		$scope.alllist = [
+			{'sm':'SM'},
+			{'yb':'YB'},
+
+
+		];
+		if(localStorage.getItem('my_data')) {
+			$scope.myData = JSON.parse(localStorage.getItem('my_data'));
+		} else {
+			$scope.myData =[
+				{
+					"name":"mw",
+					"sm":0,
+					"yb":0,
+					"zg":0,
+					'fy':0,
+					'bt':0,
+					'mj':0,
+					'jb':0
+				},
+				{
+					"name":"lg",
+					"sm":0,
+					"yb":0,
+					"zg":0,
+					'fy':0,
+					'bt':0,
+					'mj':0,
+					'jb':0
+				},
+				{
+					"name":"pt",
+					"sm":0,
+					"yb":0,
+					"zg":0,
+					'fy':0,
+					'bt':0,
+					'mj':0,
+					'jb':0
+				},
+				{
+					"name":"st",
+					"sm":0,
+					"yb":0,
+					"zg":0,
+					'fy':0,
+					'bt':0,
+					'mj':0,
+					'jb':0
+				},
+				{
+					"name":"df",
+					"sm":0,
+					"yb":0,
+					"zg":0,
+					'fy':0,
+					'bt':0,
+					'mj':0,
+					'jb':0
+				}
+			];
+
+		}
+		$scope.toggle = function(index, name) {
+
+			if($scope.myData[index][name] == 0) {
+				$scope.myData[index][name] = 1;
+			} else {
+				$scope.myData[index][name] = 0;
+			}
+
+			$scope.saveData();
+		};
+
+
+		$scope.saveData = function() {
+
+			localStorage.setItem('my_data', JSON.stringify($scope.myData));
+		}
+
+		$scope.refresh = function() {
+			localStorage.removeItem('my_data');
+			window.location.reload();
+		}
+	});
+</script>
+
+</body>
+</html>
